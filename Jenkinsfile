@@ -1,19 +1,18 @@
+ 
 pipeline {
-    agent any
-
+    agent any 
     stages {
         stage('Clone repository') {
             steps {
-                checkout([$class: 'GitSCM',
-                    branches: [[name: '*/main']],
-                    userRemoteConfig: [[url: 'https://github.com/DarrenVeigas/CC.git']]
-                ])
+                checkout([$class: 'GitSCM', 
+                branches: [[name: '*/main']], 
+                userRemoteConfigs: [[url: 'https://github.com/DarrenVeigas/CC/']]])
             }
         }
 
         stage('Build') {
             steps {
-                sh 'g++ main.cpp -o output'
+                sh 'g++ new/new.cpp -o output' 
             }
         }
 
@@ -25,14 +24,14 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                echo 'deploy'
+                echo 'deploy' 
             }
         }
     }
 
     post {
         failure {
-            error 'Pipeline failed'
+            echo 'Pipeline failed'
         }
     }
 }
